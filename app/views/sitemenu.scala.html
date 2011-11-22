@@ -1,0 +1,22 @@
+@(page: String)
+
+@import _root_.scala.collection.immutable.ListMap
+
+<div class="sitemenu">
+   <ul>
+      @for((curPage, curTitle) <- ListMap(
+      "home" -> "Home page",
+      "links" -> "Links to stuff"
+   )){
+         <li>
+            @if(curPage == page) {
+		@curTitle
+	     }else {
+		<a href=@("./" + curPage)>@curTitle</a>
+	     }
+         </li>
+      }
+   </ul>
+</div>
+
+

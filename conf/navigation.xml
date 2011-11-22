@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+	<menuitem>
+		<path>cv</path>
+		<caption>CV</caption>
+		<menuitem>
+			<path>cv/short</path>
+			<caption>Short CV</caption>
+		</menuitem>
+		<menuitem>
+			<path>cv/experience</path>
+			<caption>Experience</caption>
+		</menuitem>
+	</menuitem>
+</menu>
