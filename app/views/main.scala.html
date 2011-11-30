@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, pagePath: String)(content: Html)
 
 <!DOCTYPE html>
 
@@ -12,8 +12,10 @@
     <body>
 
         <header>
-            <a href="@routes.Application.index("")">@title</a>
+            <a href="@routes.Application.index()">@title</a>
         </header>
+
+		  @views.html.sitemenu(pagePath)
 
         <section>
             @content

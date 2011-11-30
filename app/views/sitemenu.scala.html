@@ -1,22 +1,7 @@
-@(page: String)
+@(pagePath: String)
 
-@import _root_.scala.collection.immutable.ListMap
+@import _root_.navigation.Navigation
 
-<div class="sitemenu">
-   <ul>
-      @for((curPage, curTitle) <- ListMap(
-      "home" -> "Home page",
-      "links" -> "Links to stuff"
-   )){
-         <li>
-            @if(curPage == page) {
-		@curTitle
-	     }else {
-		<a href=@("./" + curPage)>@curTitle</a>
-	     }
-         </li>
-      }
-   </ul>
-</div>
+@Html(Navigation.xhtml(pagePath).toString)
 
 

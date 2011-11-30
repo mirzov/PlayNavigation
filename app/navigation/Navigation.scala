@@ -6,8 +6,22 @@ import play.api.data._
 import Play._
 import scala.xml.XML
 import scala.xml.Node
+import scala.xml.Text
 
 class MenuItem(val path: String, val caption: String, val children: Seq[MenuItem]){
+	
+	def xhtml(pagePath: String): Node = {
+	  
+		val childrenXhtml: Node = 
+			if(children.isEmpty) Text("")
+			else <ul>{children.map(_.xhtml(pagePath))}</ul>
+
+		if(path == pagePath) 
+			<li>{caption}{childrenXhtml}</li>
+		else
+			<li><a href={"/" + path}>{caption}</a>{childrenXhtml}</li>
+	}
+  
 	override def toString = {
 	   "Path: %s\nCaption: %s".format(path, caption) +
 	   (if(children.isEmpty) "" else "\n" +  children.mkString("\n"))
@@ -17,8 +31,6 @@ class MenuItem(val path: String, val caption: String, val children: Seq[MenuItem
 class Navigation(val menuNode: Node){
   
 	val menuItems: Seq[MenuItem] = menuNode \ "menuitem" flatMap getMenuItem
-	
-	menuItems foreach println
 	
 	private def getMenuItem(itemXml: Node): Option[MenuItem] = {
 	  
@@ -33,6 +45,10 @@ class Navigation(val menuNode: Node){
 		) yield new MenuItem(path, caption, subMenus)
 	}
 	
+	def xhtml(pagePath: String): Node = <div class="sitemenu"><ul>{
+		menuItems.map(_.xhtml(pagePath))
+	}</ul></div>
+	
 }
 
 object Navigation{
@@ -41,5 +57,6 @@ object Navigation{
 		Play.getExistingFile("/conf/navigation.xml")
 			.map(XML.loadFile(_))
 			.map(new Navigation(_))
-			
+	
+	def xhtml(pagePath: String = "cv"): Node = menu.map(_.xhtml(pagePath)).getOrElse(<p>Fail!</p>)
 }

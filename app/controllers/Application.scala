@@ -2,19 +2,17 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import play.api.data._
-import views._
-import play.api.templates.Xml
 import navigation._
+import play.api.templates.Xml
 
 object Application extends Controller {
 
-  def index(path: String = "") = Action {
-    Ok(html.index())
+  def index() = Action {
+    Ok(views.html.index())
   }
 
-  def menu = Action{
-    Ok(Xml(Navigation.menu.map(_.menuNode).getOrElse(<fail/>).toString))
-  }
+//  def menu = Action{
+//    Ok(Navigation.menu.map(_.xhtml("cv")).getOrElse(<p>Fail!<p/>))
+//  }
 
 }
