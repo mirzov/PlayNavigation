@@ -6,3 +6,4 @@ logs
 .project
 .cache
 .target
+.settings
